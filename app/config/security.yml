@@ -1,0 +1,66 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: ^/
+            form_login:
+                # l'utilisateur est redirigé ici quand il/elle a besoin de se connecter
+                login_path:                     /login
+
+                # si défini à true, « forward » l'utilisateur vers le formulaire de
+                # login au lieu de le rediriger
+                use_forward:                    false
+
+                # soumet le formulaire de login vers cette URL
+                check_path:                     /login_check
+
+                # par défaut, le formulaire de login *doit* être un POST,
+                # et pas un GET
+                post_only:                      true
+
+                # options de redirection lorsque le login a réussi (vous
+                # pouvez en lire plus ci-dessous)
+                always_use_default_target_path: false
+                default_target_path:            /
+                target_path_parameter:          _target_path
+                use_referer:                    false
+
+                # options de redirection lorsque le login échoue (vous
+                # pouvez en lire plus ci-dessous)
+                failure_path:                   null
+                failure_forward:                false
+
+                # noms des champs pour le nom d'utilisateur et le mot
+                # de passe
+                username_parameter:             _username
+                password_parameter:             _password
+
+                # options du token csrf
+                csrf_parameter:                 _csrf_token
+                intention:                      authenticate
+            logout:       true
+            anonymous:    true
+
+    access_control:
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        #Ajout pour FOSUser
+        - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, role: ROLE_USER }
+        #bloque acces au site

@@ -1,0 +1,23 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-3">
+        <h1><img src="{{ asset('images/logo.png') }}"></h1>
+        <p class="lead hidden-xs hidden-sm">Bienvenue sur l'espace de discussion des loges Akhenaton et Aristarque de Samos.</p>
+    </div>
+    <div class="col-md-8 col-md-offset-1">
+
+        <div>
+            <h1 class="script">Akhenaton & Aristarque de Samos</h1>
+            <hr>
+        </div>
+
+        <h2>{% block content_title %}{% endblock content_title %}</h2>
+
+        {% block content %}
+        {% endblock content %}
+
+    </div>
+</div>
+{% endblock body %}

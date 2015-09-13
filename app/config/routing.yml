@@ -1,0 +1,14 @@
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+root:
+    pattern: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /topics
+        permanent: true
+
+aa_front_talks:
+    resource: "@AAFrontTalksBundle/Controller/"
+    type:     annotation
+    prefix:   /topics

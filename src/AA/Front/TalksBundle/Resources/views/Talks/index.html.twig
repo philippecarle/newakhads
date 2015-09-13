@@ -1,0 +1,17 @@
+{% extends '@AAFrontTalks/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content_title %}Liste des discussions{% endblock content_title %}
+
+{% block content %}
+    {% for topic in talks|sortbyfield('lastActivity', 'desc') %}
+        <div class="topic">
+            <a href="{{ path('talks_topic', {'topicId': topic.id}) }}" class="btn btn-success pull-right"><span class="glyphicon glyphicon-chevron-right"></span> Accéder</a>
+            <h4><a href="{{ path('talks_topic', {'topicId': topic.id}) }}">{{ topic.topicSubject }}</a> <small>par {{ topic.topicUser.firstName }} {{ topic.topicUser.lastName }}</small></h4>
+            <p class="topic_content">{{ topic.topicContent|striptags|slice(0, 50) ~ '...' }}</p>
+            <p>{{ topic.comments | length }} réponse{% if topic.comments | length > 1 %}s{% endif %}</p>
+        </div>
+        <hr>
+    {% endfor %}
+{% endblock content %}

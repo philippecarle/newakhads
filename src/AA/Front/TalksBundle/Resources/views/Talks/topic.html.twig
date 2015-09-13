@@ -1,0 +1,24 @@
+{% extends '@AAFrontTalks/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content_title %}
+    {{ topic.topicSubject }} <small>par {{ topic.topicUser.firstName }} {{ topic.topicUser.lastName }}</small>
+    <a href="{{ path('talks_list') }}" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-chevron-left"></span> Retour à la liste</a>
+{% endblock content_title %}
+
+{% block content %}
+    <div class="topic_content">{{ topic.topicContent|raw }}</div>
+    <hr>
+    <h5>Réponses</h5>
+    {% if topic.comments | length == 0 %}<p>aucune réponse pour le moment</p>{% endif %}
+    <ul id="comments">
+    {% for comment in topic.comments %}
+        <li>
+            <p>
+                {{ comment.commentContent }}
+            </p>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock content %}
