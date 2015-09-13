@@ -11,7 +11,7 @@
         <div class="topic">
             <a href="{{ path('talks_topic', {'topicId': topic.id}) }}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-chevron-right"></span> Accéder</a>
             <h4><a href="{{ path('talks_topic', {'topicId': topic.id}) }}">{{ topic.topicSubject }}</a></h4>
-            <p class="topic_content">{{ topic.topicContent|striptags|truncate(50, true) ~ '...' }}</p>
+            <p class="topic_content">{{ topic.topicContent|striptags|truncate(250, true) ~ '...' }}</p>
             <p>
                 <small>
                     <span class="glyphicon glyphicon-user"></span> par <strong>{{ topic.topicUser.firstName }} {{ topic.topicUser.lastName }}</strong><br>

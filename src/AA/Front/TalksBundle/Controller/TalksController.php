@@ -13,10 +13,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class TalksController extends Controller
 {
     /**
-     * @Route("/", name="talks_list")
+     * @Route("", name="talks_list")
+     * @Method({"GET"})
      * @Template()
      */
-    public function indexAction()
+    public function topicsAction()
     {
         return [
             'talks' => $this->get('aa.topics')->getTopics()
@@ -34,7 +35,18 @@ class TalksController extends Controller
     }
 
     /**
-     * @Route("/new", name="talks_new_topic_creation")
+     * @Route("/{topicId}", name="talks_topic", requirements={"topicId" = "\d+"})
+     * @Template()
+     */
+    public function topicAction($topicId)
+    {
+        return [
+            'topic' => $this->get('aa.topics')->getTopic($topicId)
+        ];
+    }
+
+    /**
+     * @Route("", name="talks_new_topic_creation")
      * @Method({"POST"})
      */
     public function newTopicCreationAction()
@@ -48,16 +60,5 @@ class TalksController extends Controller
         );
 
         return $this->redirectToRoute('talks_topic', ['topicId' => $topic->getId()]);
-    }
-
-    /**
-     * @Route("/{topicId}", name="talks_topic", requirements={"topicId" = "\d+"})
-     * @Template()
-     */
-    public function topicAction($topicId)
-    {
-        return [
-            'topic' => $this->get('aa.topics')->getTopic($topicId)
-        ];
     }
 }
