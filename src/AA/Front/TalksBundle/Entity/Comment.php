@@ -3,12 +3,14 @@
 namespace AA\Front\TalksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AA\Core\UserBundle\Entity\Brother;
+use AA\Front\TalksBundle\Entity\Topic;
 
 /**
  * Comment
  *
  * @ORM\Table(name="aa_comment")
- * @ORM\Entity(repositoryClass="AA\Front\TalksBundle\Entity\CommentRepository")
+ * @ORM\Entity(repositoryClass="AA\Front\TalksBundle\Repository\CommentRepository")
  */
 class Comment
 {
@@ -22,7 +24,7 @@ class Comment
     private $id;
 
     /**
-     * @var integer
+     * @var Topic
      *
      * @ORM\ManyToOne(targetEntity="AA\Front\TalksBundle\Entity\Topic")
      * @ORM\JoinColumn(name="comment_topic_id", referencedColumnName="id")
@@ -37,7 +39,7 @@ class Comment
     private $commentContent;
 
     /**
-     * @var integer
+     * @var Brother
      *
      * @ORM\ManyToOne(targetEntity="AA\Core\UserBundle\Entity\Brother")
      * @ORM\JoinColumn(name="comment_user_id", referencedColumnName="id")
@@ -50,6 +52,19 @@ class Comment
      * @ORM\Column(name="comment_date", type="datetime")
      */
     private $commentDate;
+
+    /**
+     * @param \AA\Front\TalksBundle\Entity\Topic $commentTopic
+     * @param $commentContent
+     * @param Brother $commentUser
+     */
+    public function __construct(Topic $commentTopic, Brother $commentUser, $commentContent)
+    {
+        $this->commentTopic = $commentTopic;
+        $this->commentContent = $commentContent;
+        $this->commentUser = $commentUser;
+        $this->commentDate = new \DateTime();
+    }
 
 
     /**
@@ -71,11 +86,13 @@ class Comment
     }
 
     /**
-     * @param Topic $commentTopic
+     * @param \AA\Front\TalksBundle\Entity\Topic $commentTopic
+     * @return $this
      */
     public function setCommentTopic(Topic $commentTopic)
     {
         $this->commentTopic = $commentTopic;
+        return $this;
     }
 
     /**
@@ -87,11 +104,13 @@ class Comment
     }
 
     /**
-     * @param string $commentContent
+     * @param $commentContent
+     * @return $this
      */
     public function setCommentContent($commentContent)
     {
         $this->commentContent = $commentContent;
+        return $this;
     }
 
     /**
@@ -103,11 +122,13 @@ class Comment
     }
 
     /**
-     * @param int $commentUser
+     * @param Brother $commentUser
+     * @return $this
      */
-    public function setCommentUser($commentUser)
+    public function setCommentUser(Brother $commentUser)
     {
         $this->commentUser = $commentUser;
+        return $this;
     }
 
     /**
@@ -119,11 +140,13 @@ class Comment
     }
 
     /**
-     * @param \DateTime $commentDate
+     * @param $commentDate
+     * @return $this
      */
     public function setCommentDate($commentDate)
     {
         $this->commentDate = $commentDate;
+        return $this;
     }
 
 }

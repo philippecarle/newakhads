@@ -38,7 +38,7 @@ class Topic
     private $topicContent;
 
     /**
-     * @var integer
+     * @var Brother
      *
      * @ORM\ManyToOne(targetEntity="AA\Core\UserBundle\Entity\Brother")
      * @ORM\JoinColumn(name="topic_user_id", referencedColumnName="id")
@@ -69,10 +69,20 @@ class Topic
      */
     private $lastActivity;
 
-
-    function __construct() {
+    /**
+     * @param $topicSubject
+     * @param $topicContent
+     * @param Brother $topicUser
+     */
+    public function __construct(Brother $topicUser, $topicSubject, $topicContent)
+    {
+        $this->topicSubject = $topicSubject;
+        $this->topicContent = $topicContent;
+        $this->topicUser = $topicUser;
+        $this->topicDate = new \DateTime();
         $this->comments = new ArrayCollection();
     }
+
 
     /**
      * Get id

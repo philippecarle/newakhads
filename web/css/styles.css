@@ -5,3 +5,17 @@ h1, h2, h3, h4, h5, h6 {
 .script {
     font-family: 'Montez', cursive;
 }
+
+.well-inversed {
+    background-color:#333;
+    color: #FFF;
+}
+
+#last5Comments {
+    font-size: 0.8em;
+    line-height: 1.7em;
+}
+
+#last5Comments i {
+    color: #8e8e8e;
+}

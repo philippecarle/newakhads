@@ -1,0 +1,16 @@
+{% if comments | length > 0 %}<h3>Derniers commentaires : </h3>{% endif %}
+<ul class="list-unstyled">
+    {% for comment in comments %}
+    <li>
+        <p>
+            <i>
+                "{{ comment.commentUser.firstName }} {{ comment.commentUser.lastName }} a commenté
+                le sujet <a href="{{ path('talks_topic', {'topicId': comment.commentTopic.id}) }}">{{ comment.commentTopic.topicSubject | truncate(20, true) }}</a>
+                écrit par {{ comment.commentTopic.topicUser.firstName }} {{ comment.commentTopic.topicUser.lastName }}
+                le {{ comment.commentDate | localizeddate('none', 'none', null, null, 'EEEE d MMMM Y à HH:m') }}"
+            </i><br>
+            <a class="btn btn-default btn-xs btn-block" href="{{ path('talks_topic', {'topicId': comment.commentTopic.id}) }}#comment{{ comment.id }}">voir son commentaire</a>
+        </p>
+    </li>
+    {% endfor %}
+</ul>

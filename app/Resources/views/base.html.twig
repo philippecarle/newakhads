@@ -7,9 +7,9 @@
         <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Montez' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="{{ asset('vendor/bootstrap/dist/css/bootstrap.min.css') }}" />
-        <link rel="stylesheet" href="{{ asset('vendor/bootstrap/dist/css/bootstrap-theme.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('css/styles.css') }}" />
-    {% endblock %}
+    {% endblock stylesheets %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
@@ -18,5 +18,31 @@
 
 {% endblock %}
 </div>
+{% block javascript %}
+    <script type="text/javascript" src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/handlebars/handlebars.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/wysihtml5x/dist/wysihtml5x.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/wysihtml5x/dist/wysihtml5x-toolbar.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/bootstrap3-wysihtml5-bower/dist/locales/bootstrap-wysihtml5.fr-FR.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('textarea.wysiwyg').wysihtml5({
+                locale: "fr-FR",
+                toolbar: {
+                    "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
+                    "emphasis": true, //Italics, bold, etc. Default true
+                    "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+                    "html": false, //Button which allows you to edit the generated HTML. Default false
+                    "link": false, //Button to insert a link. Default true
+                    "image": false, //Button to insert an image. Default true,
+                    "color": false, //Button to change color of font
+                    "blockquote": false
+                }
+            });
+        });
+    </script>
+{% endblock javascript %}
 </body>
 </html>

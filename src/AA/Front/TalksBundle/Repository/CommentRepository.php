@@ -2,6 +2,10 @@
 
 namespace AA\Front\TalksBundle\Repository;
 
+use AA\Core\UserBundle\Entity\Brother;
+use AA\Front\TalksBundle\Entity\Comment;
+use AA\Front\TalksBundle\Entity\Topic;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,4 +16,31 @@ use Doctrine\ORM\EntityRepository;
  */
 class CommentRepository extends EntityRepository
 {
+	/**
+	 * @param Topic $topic
+	 * @param Brother $user
+	 * @param $content
+	 * @return Comment
+	 */
+	public function createComment(Topic $topic, Brother $user, $content)
+	{
+		$comment = new Comment($topic, $user, $content);
+		$this->_em->persist($comment);
+		$this->_em->flush();
+
+		return $comment;
+	}
+
+	/**
+	 * @return \AA\Front\TalksBundle\Entity\Comment[]|ArrayCollection
+	 */
+	public function getLast5Comments()
+	{
+		$comments = $this->_em
+			->getRepository('AAFrontTalksBundle:Comment')
+			->findBy([],['commentDate' => 'DESC'], 5)
+		;
+		return new ArrayCollection($comments);
+	}
+
 }

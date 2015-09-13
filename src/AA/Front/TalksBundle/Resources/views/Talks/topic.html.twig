@@ -4,21 +4,51 @@
 
 {% block content_title %}
     {{ topic.topicSubject }} <small>par {{ topic.topicUser.firstName }} {{ topic.topicUser.lastName }}</small>
-    <a href="{{ path('talks_list') }}" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-chevron-left"></span> Retour à la liste</a>
+    <a href="{{ path('talks_list') }}" class="btn btn-danger btn-sm pull-right"><span class="glyphicon glyphicon-chevron-left"></span> Retour à la liste</a>
 {% endblock content_title %}
 
 {% block content %}
+    <p><span class="glyphicon glyphicon-time"></span> écrit le <strong>{{ topic.topicDate | localizeddate('none', 'none', null, null, 'EEEE d MMMM Y à HH:m') }} </strong></p>
     <div class="topic_content">{{ topic.topicContent|raw }}</div>
     <hr>
-    <h5>Réponses</h5>
+    <h4>Ajouter une réponse</h4>
+    {% for flashMessage in app.session.flashbag.get('comment-success') %}
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Succès !</strong> {{ flashMessage }}
+        </div>
+    {% endfor %}
+    <div id="add-comment">
+        <form id="new-comment" name="new-comment" action="{{ path('new_comment', {'topicId': topic.id}) }}" method="post">
+            <textarea class="form-control wysiwyg" name="commentContent"></textarea>
+            <input type="submit" class="form-control btn btn-success btn-block" value="Enregistrer mon commentaire">
+        </form>
+    </div>
+    <hr>
+    <h4>Réponses</h4>
     {% if topic.comments | length == 0 %}<p>aucune réponse pour le moment</p>{% endif %}
-    <ul id="comments">
-    {% for comment in topic.comments %}
+    <ul id="comments" class="list-unstyled">
+    {% for comment in topic.comments|sortbyfield('commentDate', 'desc') %}
         <li>
             <p>
-                {{ comment.commentContent }}
-            </p>
+                <span class="glyphicon glyphicon-user"></span> par <strong>{{ comment.commentUser.firstName }} {{ comment.commentUser.lastName }}</strong><br>
+                <span class="glyphicon glyphicon-time"></span> le <strong>{{ comment.commentDate | localizeddate('none', 'none', null, null, 'EEEE d MMMM Y à h:m')  }}</strong></p>
+            <div class="well" id="comment{{ comment.id }}">{{ comment.commentContent | raw }}</div>
         </li>
     {% endfor %}
     </ul>
 {% endblock content %}
+
+
+
+{% block javascript %}
+    {{ parent() }}
+    <script type="application/javascript">
+        $( document ).ready(function() {
+            var anchor = $(location).attr('hash');
+            if(anchor != '') {
+                $("li " + anchor).addClass('well-inversed');
+            }
+        });
+    </script>
+{% endblock javascript %}

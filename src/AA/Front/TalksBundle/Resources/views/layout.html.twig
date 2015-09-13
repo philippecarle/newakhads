@@ -4,7 +4,11 @@
 <div class="row">
     <div class="col-md-3">
         <h1><img src="{{ asset('images/logo.png') }}"></h1>
-        <p class="lead hidden-xs hidden-sm">Bienvenue sur l'espace de discussion des loges Akhenaton et Aristarque de Samos.</p>
+        <p class="lead hidden-xs hidden-sm hidden-print">Bienvenue mon frère <strong>{{ app.user.firstName }}</strong> sur l'espace de discussion des loges Akhenaton et Aristarque de Samos.</p>
+        <div id="last5Comments" class="hidden-xs hidden-sm hidden-print">
+            <hr>
+            {{ render(controller('AAFrontTalksBundle:Comments:last5CommentsBlock'))  }}
+        </div>
     </div>
     <div class="col-md-8 col-md-offset-1">
 

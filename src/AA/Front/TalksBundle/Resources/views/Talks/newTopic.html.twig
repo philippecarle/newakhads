@@ -1,0 +1,25 @@
+{% extends '@AAFrontTalks/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content_title %}
+    Nouvelle discussion
+    <a href="{{ path('talks_list') }}" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span> ANNULER</a>
+{% endblock content_title %}
+
+{% block content %}
+    <form name="newTopicForm" action="{{ path('talks_new_topic_creation') }}" method="post">
+        <div class="form-group">
+            <label for="topicSubject">Titre de ta discussion</label>
+            <input class="form-control" name="topicSubject" id="topicSubject" required>
+        </div>
+
+        <div class="form-group">
+            <label for="topicContent">Exposes ton sujet</label>
+            <textarea class="form-control wysiwyg" name="topicContent" id="topicContent" required>
+            </textarea>
+        </div>
+
+        <input type="submit" class="form-control btn btn-success btn-block" value="Enregistrer ma discussion">
+    </form>
+{% endblock content %}

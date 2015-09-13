@@ -5,7 +5,7 @@ namespace AA\Front\TalksBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Doctrine\Common\Util\Debug;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * @Route("")
@@ -24,7 +24,34 @@ class TalksController extends Controller
     }
 
     /**
-     * @Route("/{topicId}", name="talks_topic")
+     * @Route("/new", name="talks_new_topic")
+     * @Method({"GET"})
+     * @Template()
+     */
+    public function newTopicAction()
+    {
+        return [];
+    }
+
+    /**
+     * @Route("/new", name="talks_new_topic_creation")
+     * @Method({"POST"})
+     */
+    public function newTopicCreationAction()
+    {
+        $request = $this->get('request_stack')->getCurrentRequest()->request;
+
+        $topic = $this->get('aa.topics')->createTopic(
+            $this->get('security.token_storage')->getToken()->getUser(),
+            $request->get('topicSubject', "<p>Aucun titre</p>"),
+            $request->get('topicContent', "<p>Aucun contenu</p>")
+        );
+
+        return $this->redirectToRoute('talks_topic', ['topicId' => $topic->getId()]);
+    }
+
+    /**
+     * @Route("/{topicId}", name="talks_topic", requirements={"topicId" = "\d+"})
      * @Template()
      */
     public function topicAction($topicId)

@@ -2,6 +2,8 @@
 
 namespace AA\Front\TalksBundle\Repository;
 
+use AA\Core\UserBundle\Entity\Brother;
+use AA\Front\TalksBundle\Entity\Topic;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -34,6 +36,20 @@ class TopicRepository extends EntityRepository
             ->getRepository('AAFrontTalksBundle:Topic')
             ->findOneBy(['id' => $topicId])
         ;
+
+        return $topic;
+    }
+
+    /**
+     * @param Brother $user
+     * @param string $subject
+     * @param string $content
+     */
+    public function createTopic(Brother $user, $subject = "", $content = "")
+    {
+        $topic = new Topic($user, $subject, $content);
+        $this->_em->persist($topic);
+        $this->_em->flush();
 
         return $topic;
     }
