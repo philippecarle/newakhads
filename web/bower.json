@@ -1,0 +1,22 @@
+{
+  "name": "akhads",
+  "version": "0.0.0",
+  "homepage": "https://github.com/philippecarle/newakhads",
+  "authors": [
+    "kodingkittens <philippe@kodingkittens.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "bootstrap3-wysihtml5-bower": "~0.3.3",
+    "jquery-iframe-auto-height": "~2.0.0"
+  }
+}

@@ -12,3 +12,8 @@ aa_front_talks:
     resource: "@AAFrontTalksBundle/Controller/"
     type:     annotation
     prefix:   /topics
+
+aa_brothers:
+    resource: "@AACoreUserBundle/Controller/"
+    type:     annotation
+    prefix:   /brothers
