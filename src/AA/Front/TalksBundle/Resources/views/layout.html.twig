@@ -5,6 +5,13 @@
     <div class="col-md-3">
         <h1><img src="{{ asset('images/logo.png') }}"></h1>
         <p class="lead hidden-xs hidden-sm hidden-print">Bienvenue mon frère <strong>{{ app.user.firstName }}</strong> sur l'espace de discussion des loges Akhenaton et Aristarque de Samos.</p>
+
+        <p>Documents à télécharger</p>
+        <p>
+            <a href="{{ asset('pdf/axes_questions.pdf') }}" target="_blank">Les axes de questionnement</a><br>
+            <a href="{{ asset('pdf/etats_generaux.pdf') }}" target="_blank">Etats généraux - présentation</a>
+        </p>
+
         <div id="last5Comments" class="hidden-xs hidden-sm hidden-print">
             <hr>
             {{ render(controller('AAFrontTalksBundle:Comments:last5CommentsBlock'))  }}
